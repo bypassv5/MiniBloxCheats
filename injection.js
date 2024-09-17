@@ -129,8 +129,8 @@ function modifyCode(text) {
 	addReplacement('skinManager.loadTextures(),', ',this.loadVape(),');
 	addReplacement('async loadSpritesheet(){', `
 		async loadVape() {
-			this.vapeTexture = await this.loader.loadAsync("https://raw.githubusercontent.com/7GrandDadPGN/VapeForMiniblox/main/assets/logo.png");
-			this.v4Texture = await this.loader.loadAsync("https://raw.githubusercontent.com/7GrandDadPGN/VapeForMiniblox/main/assets/logov4.png");
+			this.vapeTexture = await this.loader.loadAsync("https://raw.githubusercontent.com/bypassv5/MiniBloxCheats/main/assets/logo.png");
+			this.v4Texture = await this.loader.loadAsync("https://raw.githubusercontent.com/bypassv5/MiniBloxCheats/main/assets/logov4.png");
 		}
 		async loadSpritesheet(){
 	`, true);
@@ -273,9 +273,6 @@ function modifyCode(text) {
 	addReplacement('this.lastReportedYawDump=this.yaw,', 'this.lastReportedYawDump=realYaw,', true);
 	addReplacement('this.neck.rotation.y=controls$1.yaw', 'this.neck.rotation.y=(sendYaw||controls$1.yaw)', true);
 
-    // CHATSPAMMER
-    addReplacement('', true)
-
 	// NOSLOWDOWN
 	addReplacement('const $=this.jumping,et=this.sneak,tt=-.8,rt=this.moveForwardDump<=tt;', `
 		const slowdownCheck = this.isUsingItem() && !enabledModules["NoSlowdown"];
@@ -358,7 +355,7 @@ function modifyCode(text) {
 		if (_ == "GrandDad") {
 			const $ = skins[_];
 			return new Promise((et, tt) => {
-				textureManager.loader.load("https://raw.githubusercontent.com/7GrandDadPGN/VapeForMiniblox/main/assets/skin.png", rt => {
+				textureManager.loader.load("https://raw.githubusercontent.com/bypassv5/MiniBloxCheats/main/assets/skin.png", rt => {
 					const nt = {
 						atlas: rt,
 						id: _,
@@ -376,7 +373,7 @@ function modifyCode(text) {
 		if (_ == "GrandDad") {
 			const $ = capes[_];
 			return new Promise((et, tt) => {
-				textureManager.loader.load("https://raw.githubusercontent.com/7GrandDadPGN/VapeForMiniblox/main/assets/cape.png", rt => {
+				textureManager.loader.load("https://raw.githubusercontent.com/bypassv5/MiniBloxCheats/main/assets/cape.png", rt => {
 					const nt = {
 						atlas: rt,
 						id: _,
@@ -1044,7 +1041,7 @@ function modifyCode(text) {
 			new Module("AutoQueue", function() {});
 			new Module("AutoVote", function() {});
 			const chatdisabler = new Module("ChatDisabler", function() {});
-			chatdisablermsg = chatdisabler.addoption("Message", String, "GrapeV4 on top");
+			chatdisablermsg = chatdisabler.addoption("Message", String, "GrapeV4IsBetterThanYou");
 			new Module("FilterBypass", function() {});
 
 			const survival = new Module("SurvivalMode", function(callback) {
