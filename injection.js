@@ -285,7 +285,7 @@ function modifyCode(text) {
 	addReplacement('et.y=this.stepHeight;', 'et.y=(enabledModules["Step"]?Math.max(stepheight[1],this.stepHeight):this.stepHeight);', true);
 
 	// BLATANTSTEP
-	addReplacement('et.y=this.stepHeight;', 'et.y=(enabledModules["BlatantStep"]?Math.max(stepheight[3],this.stepHeight):this.stepHeight);', true);
+	addReplacement('et.y=this.blatantstepHeight;', 'et.y=(enabledModules["BlatantStep"]?Math.max(blatantstepheight[3],this.blatantstepHeight):this.blatantstepHeight);', true);
 
 	// WTAP
 	addReplacement('this.dead||this.getHealth()<=0)return;', `
@@ -549,8 +549,9 @@ function modifyCode(text) {
 					}
 				} else delete tickLoop["AutoClicker"];
 			});
-   			new Module("BlatantStep", function() {});
-     			stepheight = step.addoption("Height", Number, 2);
+   			const blatantstep = new Module("BlatantStep", function() {});
+			blatantstepheight = blatantstep.addoption("Height", Number, 2);
+
 			new Module("Chams", function() {});
 			const textgui = new Module("TextGUI", function() {});
 			textguifont = textgui.addoption("Font", String, "Arial");
