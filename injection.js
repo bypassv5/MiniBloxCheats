@@ -270,8 +270,6 @@ function modifyCode(text) {
 	addReplacement('const nt={onGround:this.onGround}', `, realYaw = sendYaw || this.yaw`);
 	addReplacement('this.yaw-this.', 'realYaw-this.', true);
 	addReplacement('nt.yaw=player.yaw', 'nt.yaw=realYaw', true);
-	addReplacement('this.lastReportedYawDump=this.yaw,', 'this.lastReportedYawDump=realYaw,', true);
-	addReplacement('this.neck.rotation.y=controls$1.yaw', 'this.neck.rotation.y=(sendYaw||controls$1.yaw)', true);
 
 	// NOSLOWDOWN
 	addReplacement('const $=this.jumping,et=this.sneak,tt=-.8,rt=this.moveForwardDump<=tt;', `
