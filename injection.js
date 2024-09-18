@@ -265,11 +265,13 @@ function modifyCode(text) {
 	`, true);
 
 	// KILLAURA
-	addReplacement('else player$1.isBlocking()?', 'else (player$1.isBlocking() || blocking)?', true);
-	addReplacement('this.entity.isBlocking()', '(this.entity.isBlocking() || this.entity == player$1 && blocking)', true);
-	addReplacement('const nt={onGround:this.onGround}', `, realYaw = sendYaw || this.yaw`);
+	addReplacement('else player$1.isBlocking()?', 'else (player$1.isBlocking() || blocking)?', false);
+	addReplacement('this.entity.isBlocking()', '(this.entity.isBlocking() || this.entity == player$1 && blocking)', false);
+	addReplacement('const nt={onGround:this.onGround}', , realYaw = sendYaw || this.yaw);
 	addReplacement('this.yaw-this.', 'realYaw-this.', true);
 	addReplacement('nt.yaw=player.yaw', 'nt.yaw=realYaw', true);
+	addReplacement('this.lastReportedYawDump=this.yaw,', 'this.lastReportedYawDump=realYaw,', true);
+	addReplacement('this.neck.rotation.y=controls$1.yaw', 'this.neck.rotation.y=(sendYaw||controls$1.yaw)', true);
 
 	// NOSLOWDOWN
 	addReplacement('const $=this.jumping,et=this.sneak,tt=-.8,rt=this.moveForwardDump<=tt;', `
@@ -281,6 +283,9 @@ function modifyCode(text) {
 
 	// STEP
 	addReplacement('et.y=this.stepHeight;', 'et.y=(enabledModules["Step"]?Math.max(stepheight[1],this.stepHeight):this.stepHeight);', true);
+
+	// BLATANTSTEP
+	addReplacement('et.y=this.stepHeight;', 'et.y=(enabledModules["BlatantStep"]?Math.max(stepheight[3],this.stepHeight):this.stepHeight);', true);
 
 	// WTAP
 	addReplacement('this.dead||this.getHealth()<=0)return;', `
@@ -429,6 +434,10 @@ function modifyCode(text) {
 				for(const [name, module] of Object.entries(modules)) chatString += "\\n" + name;
 				game$1.chat.addChat({text: chatString});
 				return;
+    			case ".test123":
+				chatString = "testing";
+				game$1.chat.addChat({text: chatString});
+				return;
 			case ".binds":
 				chatString = "Bind List\\n";
 				for(const [name, module] of Object.entries(modules)) chatString += "\\n" + name + " : " + (module.bind != "" ? module.bind : "none");
@@ -540,6 +549,15 @@ function modifyCode(text) {
 					}
 				} else delete tickLoop["AutoClicker"];
 			});
+   			new Module("BlatantStep", function() {});
+     			stepheight = step.addoption("Height", Number, 2);
+			new Module("Chams", function() {});
+			const textgui = new Module("TextGUI", function() {});
+			textguifont = textgui.addoption("Font", String, "Arial");
+			textguisize = textgui.addoption("TextSize", Number, 15);
+			textguishadow = textgui.addoption("Shadow", Boolean, true);
+			textgui.toggle();
+			new Module("AutoRespawn", function() {});
 
 			new Module("Sprint", function() {});
 			const velocity = new Module("Velocity", function() {});
