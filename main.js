@@ -1,9 +1,8 @@
 // ==UserScript==
-// @name         Vape V4
-// @namespace    http://7granddadpgn.github.io
-// @version      2024-07-29
-// @description  A browser script made to give enhancements on miniblox.io
-// @author       7GrandDad
+// @name         Grape V4
+// @version      2024-09-19
+// @description  GrapeV4 Miniblox is here!
+// @author       bypassv5 / alex
 // @match        https://miniblox.io/*
 // @icon         https://miniblox.io/favicon.png
 // @grant        GM_getValue
