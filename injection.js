@@ -129,8 +129,8 @@ function modifyCode(text) {
 	addReplacement('skinManager.loadTextures(),', ',this.loadVape(),');
 	addReplacement('async loadSpritesheet(){', `
 		async loadVape() {
-			this.vapeTexture = await this.loader.loadAsync("https://raw.githubusercontent.com/bypassv5/MiniBloxCheats/main/assets/logo.png");
-			this.v4Texture = await this.loader.loadAsync("https://raw.githubusercontent.com/bypassv5/MiniBloxCheats/main/assets/logov4.png");
+			this.vapeTexture = await this.loader.loadAsync("https://raw.githubusercontent.com/7GrandDadPGN/VapeForMiniblox/main/assets/logo.png");
+			this.v4Texture = await this.loader.loadAsync("https://raw.githubusercontent.com/7GrandDadPGN/VapeForMiniblox/main/assets/logov4.png");
 		}
 		async loadSpritesheet(){
 	`, true);
@@ -265,9 +265,9 @@ function modifyCode(text) {
 	`, true);
 
 	// KILLAURA
-	addReplacement('else player$1.isBlocking()?', 'else (player$1.isBlocking() || blocking)?', false);
-	addReplacement('this.entity.isBlocking()', '(this.entity.isBlocking() || this.entity == player$1 && blocking)', false);
-	addReplacement('const nt={onGround:this.onGround}', , realYaw = sendYaw || this.yaw);
+	addReplacement('else player$1.isBlocking()?', 'else (player$1.isBlocking() || blocking)?', true);
+	addReplacement('this.entity.isBlocking()', '(this.entity.isBlocking() || this.entity == player$1 && blocking)', true);
+	addReplacement('const nt={onGround:this.onGround}', `, realYaw = sendYaw || this.yaw`);
 	addReplacement('this.yaw-this.', 'realYaw-this.', true);
 	addReplacement('nt.yaw=player.yaw', 'nt.yaw=realYaw', true);
 	addReplacement('this.lastReportedYawDump=this.yaw,', 'this.lastReportedYawDump=realYaw,', true);
@@ -283,9 +283,6 @@ function modifyCode(text) {
 
 	// STEP
 	addReplacement('et.y=this.stepHeight;', 'et.y=(enabledModules["Step"]?Math.max(stepheight[1],this.stepHeight):this.stepHeight);', true);
-
-	// BLATANTSTEP
-	addReplacement('et.y=this.blatantstepHeight;', 'et.y=(enabledModules["BlatantStep"]?Math.max(blatantstepheight[1],this.blatantstepHeight):this.blatantstepHeight);', true);
 
 	// WTAP
 	addReplacement('this.dead||this.getHealth()<=0)return;', `
@@ -394,7 +391,7 @@ function modifyCode(text) {
 	`);
 
 	// LOGIN BYPASS
-	addReplacement('new SPacketLoginStart({requestedUuid:localStorage.getItem(REQUESTED_UUID_KEY)??void 0,session:localStorage.getItem(SESSION_TOKEN_KEY)??"",hydration:localStorage.getItem("hydration")??"0",metricsId:localStorage.getItem("metrics_id")??"",clientVersion:VERSION$1})', 'new SPacketLoginStart({requestedUuid:void 0,session:(enabledModules["Killaura"] ? "" : (localStorage.getItem(SESSION_TOKEN_KEY) ?? "")),hydration:"0",metricsId:uuid$1(),clientVersion:VERSION$1})', true);
+	addReplacement('new SPacketLoginStart({requestedUuid:localStorage.getItem(REQUESTED_UUID_KEY)??void 0,session:localStorage.getItem(SESSION_TOKEN_KEY)??"",hydration:localStorage.getItem("hydration")??"0",metricsId:localStorage.getItem("metrics_id")??"",clientVersion:VERSION$1})', 'new SPacketLoginStart({requestedUuid:void 0,session:(enabledModules["AntiBan"] ? "" : (localStorage.getItem(SESSION_TOKEN_KEY) ?? "")),hydration:"0",metricsId:uuid$1(),clientVersion:VERSION$1})', true);
 
 	// KEY FIX
 	addReplacement('Object.assign(keyMap,_)', '; keyMap["Semicolon"] = "semicolon"; keyMap["Apostrophe"] = "apostrophe";');
@@ -432,10 +429,6 @@ function modifyCode(text) {
 			case ".modules":
 				chatString = "Module List\\n";
 				for(const [name, module] of Object.entries(modules)) chatString += "\\n" + name;
-				game$1.chat.addChat({text: chatString});
-				return;
-    			case ".test123":
-				chatString = "testing";
 				game$1.chat.addChat({text: chatString});
 				return;
 			case ".binds":
@@ -549,16 +542,6 @@ function modifyCode(text) {
 					}
 				} else delete tickLoop["AutoClicker"];
 			});
-   			const blatantstep = new Module("BlatantStep", function() {});
-			blatantstepheight = blatantstep.addoption("Height", Number, 8);
-
-			new Module("Chams", function() {});
-			const textgui = new Module("TextGUI", function() {});
-			textguifont = textgui.addoption("Font", String, "Arial");
-			textguisize = textgui.addoption("TextSize", Number, 15);
-			textguishadow = textgui.addoption("Shadow", Boolean, true);
-			textgui.toggle();
-			new Module("AutoRespawn", function() {});
 
 			new Module("Sprint", function() {});
 			const velocity = new Module("Velocity", function() {});
@@ -1058,7 +1041,7 @@ function modifyCode(text) {
 			new Module("AutoQueue", function() {});
 			new Module("AutoVote", function() {});
 			const chatdisabler = new Module("ChatDisabler", function() {});
-			chatdisablermsg = chatdisabler.addoption("Message", String, "GrapeV4IsBetterThanYou");
+			chatdisablermsg = chatdisabler.addoption("Message", String, "youtube.com/c/7GrandDadVape");
 			new Module("FilterBypass", function() {});
 
 			const survival = new Module("SurvivalMode", function(callback) {
